@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Chat</title>
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+</head>
+
+<body>
+    <div class="wrapper">
+        <div class="programm">
+            <div class="settings">   
+                <button class="btn" id="settings">Настройки</button>
+                <button class="btn">Выйти</button>
+            </div>
+            <div class="chat-body">
+                <div class="chat">
+                    <div class="message read me">
+                            <div class="message-text"><span>Я: </span><span>Добрый день </span></div>
+                            <div class="message-time">18:45</div>
+                    </div>  
+                    <div class="message interlocutor read">
+                        <div class="message-text"><span>Собесебдник мой: </span><span>Добрый день </span></div>
+                        <div class="message-time">18:45</div>
+                    </div>  
+                    <div class="message interlocutor read">
+                        <div class="message-text"><span>Собесебдник мой: </span><span>А это второе Оооооооооочень длинное сообщение, которое надо перенести на другую строку</span></div>
+                        <div class="message-time">18:45</div>
+                    </div>
+                    <div class="message unread me">
+                            <div class="message-text"><span>Я: </span><span>Добрый день </span></div>
+                            <div class="message-time">18:45</div>
+                    </div>  
+                </div>
+            </div>
+        <div class="input">
+                <form class="input-message">
+                    <input class="input-text" type="text" placeholder="сообщение..">
+                    <!--<textarea class="input-text" type="textarea" placeholder="сообщение.."></textarea>-->
+                    <input class="submit-btn" value="->" type="submit" />
+                </form>
+        </div>
+
+        <template id="tmplt-message">
+            <div class="message unread me">
+                <div class="message-text"><span>Я: </span><span>Добрый день </span></div>
+                <div class="message-time">18:45</div>
+        </div>
+          </template>
+          <template id="tmplt-modal">
+            <div class="body-modals">
+                <div class="wrapper-modals">
+                    <div class="settings-modals">
+                        <button class="btn-settings">Настройки</button>
+                        <button class="btn-cross">X</button>
+                    </div>
+                    <label for="name-chat">Имя в чате</label>
+                    <div class="input-modals">
+                        <form class="input-message-modals">
+                            <input id="name-chat" class="input-text-modals" type="text" placeholder="Стив">
+                            <input class="submit-btn-modals" value="->" type="submit" />
+                        </form>
+                    </div>
+            
+                </div>
+            </div>
+          </template>
+
+        <template id="tmplt-authorization">
+            <div class="body-modals">
+                <div class="wrapper-modals">
+                    <div class="settings-modals">
+                        <button class="btn-settings">Авторизация</button>
+                        <button class="btn-cross">X</button>
+                    </div>
+                    <label for="mail-chat">Почта</label>
+                    <div class="input-authorization">
+                        <form class="input-message-authorization">
+                            <input id="mail-chat" class="input-text-authorization" type="text">
+                            <input class="btn" value="Получить код" type="submit" />
+                        </form>
+                    </div>
+            
+                </div>
+            </div>
+        </template>
+        <template id="tmplt-confirmation">
+            <div class="body-modals">
+                <div class="wrapper-modals">
+                    <div class="settings-modals">
+                        <button class="btn-settings">Подтверждение</button>
+                        <button class="btn-cross">X</button>
+                    </div>
+                    <label for="mail-chat">Почта</label>
+                    <div class="input-confirmation">
+                        <form class="input-message-confirmation">
+                            <input id="mail-chat" class="input-text-confirmation" type="text">
+                            <input class="btn" value="Войти" type="submit" />
+                        </form>
+                    </div>
+            
+                </div>
+            </div>
+        </template>
+    </div>  
+    </div>
+
+    
+
+
+
+    <script src="app.js"></script>
+</body>
+
+</html>

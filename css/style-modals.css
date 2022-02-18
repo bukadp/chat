@@ -1,0 +1,104 @@
+body{
+    font-family: 'Roboto', Helvetica, sans-serif;
+    color: #000000;
+    font-weight: 400;
+    font-size: 16px;
+    
+}
+
+.body-modals{
+    background: #535353;
+    width: 321px;
+    height: 533px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center
+
+}
+
+
+.wrapper-modals{
+    background-color: #ffffff;
+    width: 245px;
+    height: 319px;
+    padding: 14px;
+
+}
+
+.settings-modals{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 18px;
+}
+
+.btn-settings{
+    background-color: #ffffff;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    margin: 0;
+    font-family: 'Roboto', Helvetica, sans-serif;
+    color: #000000;
+    font-weight: 400;
+    font-size: 16px;
+}
+
+.btn-cross{
+    background-color: #ffffff;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    margin: 0;
+    color: #535353;
+    font-size: 10px;
+    font-weight: 600;
+}
+label{
+    font-family: inherit;
+    font-weight: inherit;
+    font-size: inherit;
+    line-height: inherit;
+    text-decoration: inherit;
+}
+
+input::placeholder{
+    font-family: 'Roboto', Helvetica, sans-serif;
+    color: #000000;
+    font-weight: 400;
+    font-size: 16px;
+}
+
+
+
+.input-modals{
+    margin-top: 8px;
+}
+
+.input-message-modals{
+    display: flex;
+    justify-content: space-between;
+}
+
+.input-text-modals{
+    border: 1px solid #000000;
+    width: 189px;
+    height: 18px;
+    padding: 6px 8px 6px 8px;
+}
+
+.submit-btn-modals{
+    border: 1px solid #000000;
+    width: 30px;
+    height: 32px;
+    margin: 0;
+    cursor: pointer;
+    background-color: #ffffff;
+}
+
+
+input{
+    border: none;
+    margin: 0;
+    padding: 0;
+}
