@@ -2,19 +2,15 @@ import Cookies from './node_modules/js-cookie/index.js'
 
 const wholeTemplateMessage = document.querySelector("#tmplt-message");
 let timeFromWholeTemplate = wholeTemplateMessage.content.querySelector(".message-time").textContent;
-
 const submitForm = document.querySelector(".input-message");
 submitForm.addEventListener("submit", cloneText);
-
 let spanFromWholeTemplate = wholeTemplateMessage.content.querySelector(".message-text").lastChild;
 const chat = document.querySelector(".chat");
-
 const btnSettings = document.querySelector("#settings");
 btnSettings.addEventListener("click", showAuthorizationForm);
 const wholeTemplateAuthorization = document.querySelector("#tmplt-authorization");
 const wholeTemplateConfirmation = document.querySelector("#tmplt-confirmation");
 const wholeTemplateSettings = document.querySelector("#tmplt-settings");
-
 
 function cloneText(e){
         e.preventDefault()
@@ -24,22 +20,14 @@ function cloneText(e){
         insertText(templateClone);
 }
 
-//function insertTime() {
-//const today = new Date();
-//}
-
 function insertText(template) {
         chat.append(template);
-        window.scrollTo(0,document.body.scrollHeight);
-        //*chat.scrollTop = chat.scrollHeight;**/
         submitForm.reset();
 }
-
 
 function showAuthorizationForm() {
     let templateClone = wholeTemplateAuthorization.content.cloneNode(true);
     document.body.append(templateClone);
-
     setTimeout(initialAuthorization, 1000);
 }
 
@@ -71,18 +59,14 @@ alert("Введите корректный email")
     }
 }
 
-
 function showConfirmationForm() {
   let templateClone = wholeTemplateConfirmation.content.cloneNode(true);
   document.body.append(templateClone);
-  //let submitConfirmationValue = document.querySelector(".input-text-confirmation");
-
   setTimeout(initialConfirmation, 1000);
 }
 
 function initialConfirmation() {
   const submitConfirmation = document.querySelector(".input-message-confirmation");
-  //let submitConfirmationValue = document.querySelector("#cod-chat");
   submitConfirmation.addEventListener("submit", handlerConfirmation);
 }
 
@@ -100,7 +84,6 @@ function setCookies() {
 function showSettingsForm() {
   let templateClone = wholeTemplateSettings.content.cloneNode(true);
   document.body.append(templateClone);
-
   setTimeout(initialSettings, 1000);
 }
 
@@ -131,11 +114,9 @@ async function getName(token) {
    let response = await fetch('https://chat1-341409.oa.r.appspot.com/api/user/me', {
     method: 'GET',
     headers: {
-     // 'Content-Type': 'application/json;charset=utf-8',
       'Authorization': `Bearer ${token}`
     },
   });
   let result = await response.json();
   alert(result.name);
 }
-
