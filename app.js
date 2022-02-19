@@ -1,3 +1,5 @@
+import Cookies from './node_modules/js-cookie/index.js'
+
 const wholeTemplateMessage = document.querySelector("#tmplt-message");
 let timeFromWholeTemplate = wholeTemplateMessage.content.querySelector(".message-time").textContent;
 
@@ -10,20 +12,17 @@ const chat = document.querySelector(".chat");
 const btnSettings = document.querySelector("#settings");
 btnSettings.addEventListener("click", showAuthorizationForm);
 const wholeTemplateAuthorization = document.querySelector("#tmplt-authorization");
+const wholeTemplateConfirmation = document.querySelector("#tmplt-confirmation");
+const wholeTemplateSettings = document.querySelector("#tmplt-settings");
 
 
-
-
-
-    function cloneText(e){
+function cloneText(e){
         e.preventDefault()
         const inputText = document.querySelector(".input-text").value;
         spanFromWholeTemplate.textContent = inputText;
         let templateClone = wholeTemplateMessage.content.cloneNode(true);
         insertText(templateClone);
-
-    }
-
+}
 
 //function insertTime() {
 //const today = new Date();
@@ -31,6 +30,8 @@ const wholeTemplateAuthorization = document.querySelector("#tmplt-authorization"
 
 function insertText(template) {
         chat.append(template);
+        window.scrollTo(0,document.body.scrollHeight);
+        //*chat.scrollTop = chat.scrollHeight;**/
         submitForm.reset();
 }
 
@@ -39,68 +40,102 @@ function showAuthorizationForm() {
     let templateClone = wholeTemplateAuthorization.content.cloneNode(true);
     document.body.append(templateClone);
 
-    initialAuthorization();
+    setTimeout(initialAuthorization, 1000);
 }
 
 function initialAuthorization() {
     const submitAuthorization = document.querySelector(".input-message-authorization");
-    submitAuthorization.addEventListener("submit", getToken);   
+    submitAuthorization.addEventListener("submit", handlerAuthorization);   
 }
 
-async function getToken(e) {
-  e.preventDefault();
-    const email = 'bershardskyevgenysw@gmail.com';
-    await fetch('https://chat1-341409.oa.r.appspot.com/api/user', {
+function handlerAuthorization(event){
+  event.preventDefault()
+  getToken();
+  showConfirmationForm();
+}
+
+async function getToken() {
+  let submitAuthorizationValue = document.querySelector(".input-text-authorization").value;
+  if (!submitAuthorizationValue.includes('@')) { 
+alert("Введите корректный email")
+  } else {
+   await fetch('https://chat1-341409.oa.r.appspot.com/api/user', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json;charset=utf-8'
         },
         body: JSON.stringify({
-            email: email
+            email: submitAuthorizationValue
         })
-      });
-
-      
-  submitFormAuthorization.addEventListener("submit", showConfirmationForm);   
+      });    
+    }
 }
-
-
 
 
 function showConfirmationForm() {
   let templateClone = wholeTemplateConfirmation.content.cloneNode(true);
   document.body.append(templateClone);
+  //let submitConfirmationValue = document.querySelector(".input-text-confirmation");
 
-  initialConfirmation();
+  setTimeout(initialConfirmation, 1000);
 }
 
 function initialConfirmation() {
-  const wholeTemplateConfirmation = document.querySelector("#tmplt-confirmation");
-  wholeTemplateConfirmation.addEventListener("submit", changeName);   
+  const submitConfirmation = document.querySelector(".input-message-confirmation");
+  //let submitConfirmationValue = document.querySelector("#cod-chat");
+  submitConfirmation.addEventListener("submit", handlerConfirmation);
+}
+
+function handlerConfirmation(e) {
+  e.preventDefault();
+  setCookies();
+  showSettingsForm();
+}
+
+function setCookies() {
+  let submitConfirmationValue = document.querySelector(".input-text-confirmation").value;
+  Cookies.set('token', submitConfirmationValue);
+}
+
+function showSettingsForm() {
+  let templateClone = wholeTemplateSettings.content.cloneNode(true);
+  document.body.append(templateClone);
+
+  setTimeout(initialSettings, 1000);
+}
+
+function initialSettings() {
+  const submitSettings = document.querySelector(".input-message-modals");
+  submitSettings.addEventListener("submit", changeName);
 }
 
 async function changeName(e) {
   e.preventDefault();
-  console.log("2121212121212121212121212121");
+  let submitSettingsNameValue = document.querySelector(".input-text-modals").value;
+  let getCookiesToken = Cookies.get('token');
+  await fetch('https://chat1-341409.oa.r.appspot.com/api/user', {
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json;charset=utf-8',
+      'Authorization': `Bearer ${getCookiesToken}`
+    },
+    body: JSON.stringify({
+      name: submitSettingsNameValue
+    })
+  });
+  console.log(getCookiesToken);
+  getName(getCookiesToken);
 }
 
+async function getName(token) {
+   let response = await fetch('https://chat1-341409.oa.r.appspot.com/api/user/me', {
+    method: 'GET',
+    headers: {
+     // 'Content-Type': 'application/json;charset=utf-8',
+      'Authorization': `Bearer ${token}`
+    },
+  });
+  let result = await response.json();
+  alert(result.name);
+}
 
-
-
-/**
-(async () => {
-    let user = {
-      email: 'bershardskyevgenysw@gmail.com'
-    };
-    
-    let response = await fetch('https://chat1-341409.oa.r.appspot.com/api/user', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json;charset=utf-8'
-      },
-      body: JSON.stringify(user)
-    });
-    
-    let result = await response.json();
-    alert(result.message);
-    })()**/

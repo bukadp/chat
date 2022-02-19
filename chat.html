@@ -48,11 +48,11 @@
                 <div class="message-time">18:45</div>
         </div>
           </template>
-          <template id="tmplt-modal">
-            <div class="body-modals">
+          <template id="tmplt-settings">
+            <div class="body-modals-settings">
                 <div class="wrapper-modals">
                     <div class="settings-modals">
-                        <button class="btn-settings">Настройки</button>
+                        <span>Настройки</span>
                         <button class="btn-cross">X</button>
                     </div>
                     <label for="name-chat">Имя в чате</label>
@@ -68,10 +68,10 @@
           </template>
 
         <template id="tmplt-authorization">
-            <div class="body-modals">
+            <div class="body-modals-authorization">
                 <div class="wrapper-modals">
                     <div class="settings-modals">
-                        <button class="btn-settings">Авторизация</button>
+                        <span>Авторизация</span>
                         <button class="btn-cross">X</button>
                     </div>
                     <label for="mail-chat">Почта</label>
@@ -86,16 +86,16 @@
             </div>
         </template>
         <template id="tmplt-confirmation">
-            <div class="body-modals">
+            <div class="body-modals-confirmation">
                 <div class="wrapper-modals">
                     <div class="settings-modals">
-                        <button class="btn-settings">Подтверждение</button>
+                        <span>Подтверждение</span>
                         <button class="btn-cross">X</button>
                     </div>
-                    <label for="mail-chat">Почта</label>
+                    <label for="cod-chat">Код</label>
                     <div class="input-confirmation">
                         <form class="input-message-confirmation">
-                            <input id="mail-chat" class="input-text-confirmation" type="text">
+                            <input id="cod-chat" class="input-text-confirmation" type="text">
                             <input class="btn" value="Войти" type="submit" />
                         </form>
                     </div>
@@ -110,7 +110,8 @@
 
 
 
-    <script src="app.js"></script>
+    <script type="module" src="app.js"></script>
+  
 </body>
 
 </html>
