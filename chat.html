@@ -12,16 +12,16 @@
         <div class="programm">
             <div class="settings">   
                 <button class="btn" id="settings">Настройки</button>
-                <button class="btn">Выйти</button>
+                <button class="btn" id="signout">Выйти</button>
             </div>
             <div class="chat-body">
                 <div class="chat">
                     <div class="message read me">
-                            <div class="message-text"><span>Я: </span><span>Добрый день </span></div>
+                            <div class="message-text"><span>Я: </span><span>Добрый день1 </span></div>
                             <div class="message-time">18:45</div>
                     </div>  
                     <div class="message interlocutor read">
-                        <div class="message-text"><span>Собесебдник мой: </span><span>Добрый день </span></div>
+                        <div class="message-text"><span>Собесебдник мой: </span><span>Добрый деньСоб1 </span></div>
                         <div class="message-time">18:45</div>
                     </div>  
                     <div class="message interlocutor read">
@@ -44,10 +44,18 @@
 
         <template id="tmplt-message">
             <div class="message unread me">
-                <div class="message-text"><span>Я: </span><span>Добрый день </span></div>
+                <div class="message-text"><span>Я: </span><span>Добрый день шаблон</span></div>
                 <div class="message-time">18:45</div>
         </div>
           </template>
+
+          <template id="tmplt-message-user">
+            <div class="message unread interlocutor">
+                <div class="message-text"><span>User: </span><span>Кто там? </span></div>
+                <div class="message-time">00:00</div>
+        </div>
+          </template>
+
           <template id="tmplt-settings">
             <div class="body-modals-settings">
                 <div class="wrapper-modals">
@@ -105,13 +113,9 @@
         </template>
     </div>  
     </div>
+ 
 
-    
-
-
-
-    <script type="module" src="app.js"></script>
-  
+    <script type="module" src="./app.js"></script>
 </body>
 
 </html>
