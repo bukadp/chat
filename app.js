@@ -2,10 +2,13 @@ import Cookies from 'js-cookie';
 import {UI} from './view.js';
 import {API, apiSend, ERORS} from './api';
 
-const wholeTemplateMessage = document.querySelector("#tmplt-message");
-const timeFromWholeTemplate = wholeTemplateMessage.content.querySelector(".message-time").textContent;
+const wholeTemplateMessageMe = document.querySelector("#tmplt-message");
+const wholeTemplateMessageUser = document.querySelector("#tmplt-message-user");
+
+const timeFromWholeTemplate = wholeTemplateMessageMe.content.querySelector(".message-time").textContent;
 const submitForm = document.querySelector(".input-message");
-const spanTextFromWholeTemplate = wholeTemplateMessage.content.querySelector(".message-text").lastChild;
+const spanTextFromWholeTemplate = wholeTemplateMessageMe.content.querySelector(".message-text").lastChild;
+const spanTextFromWholeTemplateUser = wholeTemplateMessageUser.content.querySelector(".message-text").lastChild;
 const chat = document.querySelector(".chat");
 const btnSettings = document.querySelector("#settings");
 const wholeTemplateAuthorization = document.querySelector("#tmplt-authorization");
@@ -22,23 +25,43 @@ btnSettings.addEventListener("click", switchTemplates);
 btnSignOut.addEventListener("click", signOut);
 
 
+function cloneText(e){
+  e.preventDefault()
+  spanTextFromWholeTemplate.textContent = inputText.value;
+  let templateClone = wholeTemplateMessageMe.content.cloneNode(true);
+  insertText(templateClone);
+  runningSoket();
+  console.log(inputText);
+  console.log(inputText.value);
+  console.log(spanTextFromWholeTemplate.textContent);
+ 
+}
+
+function insertText(template) {
+  chat.append(template);
+  submitForm.reset();
+ // ИМЯ!!! const spanNameFromWholeTemplate = wholeTemplateMessageMe.content.querySelector(".message-text").firstChild;
+ // ИМЯ!!! spanNameFromWholeTemplate.textContent = "МОЕ сообщение: "
+}
+
 function runningSoket() {
   const socket = new WebSocket(`ws://chat1-341409.oa.r.appspot.com/websockets?${getCookiesToken}`);
   
-  
   socket.onopen = function(e) {
-    alert("[open] Соединение установлено");
-    alert("Отправляем данные на сервер");
+    //alert("[open] Соединение установлено");
+    //alert("Отправляем данные на сервер");
   socket.send(JSON.stringify({
-    text: 'тестовый тест',
+    text: spanTextFromWholeTemplate.textContent,
   }));
 }
   
   socket.onmessage = function(event) {
-    console.log(event.data);
+    const onmessageData = JSON.parse(event.data);
+    console.log(onmessageData.text);
+    console.log(onmessageData.user.email);
+    console.log(onmessageData.user.name);
   };
 }
-
 
 function switchTemplates() {
   if (typeof getCookiesToken == "undefined" ) {
@@ -48,18 +71,19 @@ function switchTemplates() {
   }
 }
 
+
 /**-------------------------------------------
 function cloneText(e){
         e.preventDefault()
         spanTextFromWholeTemplate.textContent = inputText.value;
-        let templateClone = wholeTemplateMessage.content.cloneNode(true);
+        let templateClone = wholeTemplateMessageMe.content.cloneNode(true);
         insertText(templateClone);
 }
 
 function insertText(template) {
         chat.append(template);
         submitForm.reset();
-        const spanNameFromWholeTemplate = wholeTemplateMessage.content.querySelector(".message-text").firstChild;
+        const spanNameFromWholeTemplate = wholeTemplateMessageMe.content.querySelector(".message-text").firstChild;
 }
 -------------------------------------------**/
 function showAuthorizationForm() {
@@ -196,6 +220,7 @@ async function getName() {
   let result = await response.json();
   alert(result.name);
 }
+
 /**
 function getMessages() {
   fetch('https://chat1-341409.oa.r.appspot.com/api/messages/', {
@@ -207,14 +232,22 @@ function getMessages() {
   .then((response) => response.json())
   .then (data => {
 
-      spanTextFromWholeTemplate.textContent = `${data.messages[0].message}`;
-      let templateClone = wholeTemplateMessage.content.cloneNode(true);
-      chat.append(templateClone);
+    for (let i = 0; i < data.messages.length; i++) {
+      const DATA = {
+          NAME: 'Собеседник мой',
+          TEXT_MESSAGE: data.messages[i].message,
+          TIME_MESSAGE: data.messages[i].createdAt,
+          CLASS: 'message message-to-me',
+      }   
 
+    spanTextFromWholeTemplateUser.textContent = `${data.messages[i].message}`;
+      let templateClone = wholeTemplateMessageUser.content.cloneNode(true);
+      chat.append(templateClone);
+    }
   })
  .catch(error => alert(error.message)); 
-  }**/
-
+  }
+**/
   async function signOut() {
     await fetch('https://chat1-341409.oa.r.appspot.com/api/user', {
       method: 'PATCH',
